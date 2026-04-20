@@ -39,7 +39,7 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-Ouvre ton navigateur sur :
+Ouvrez votre navigateur sur :
 ```
 http://127.0.0.1:8000/
 ```
@@ -67,6 +67,4 @@ http://127.0.0.1:8000/
 
 ## 5. Auteurs
 
-- **Khalil** — Étudiant à FST Tunis
-- Projet réalisé dans le cadre du cours
-  Fondements Mathématiques du Machine Learning (FMML)
+- **Khalil Mohamed Chihaoui** 
