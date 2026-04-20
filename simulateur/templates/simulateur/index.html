@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Simulateur CLT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 750px;
+            margin: 40px auto;
+            background-color: #f0f4f8;
+            color: #2c3e50;
+        }
+        h1 { text-align: center; }
+        form {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+        }
+        select, input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            font-size: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background-color: #2c3e50;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover { background-color: #34495e; }
+        .resultats {
+            background: white;
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .resultats img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+        .stat-box {
+            background: #f0f4f8;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-box span {
+            display: block;
+            font-size: 22px;
+            font-weight: bold;
+            color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+<h1>📈 Simulateur du Théorème Central Limite</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label>Distribution :</label>
+    <select name="distribution" id="distribution" onchange="afficherParams()">
+        <option value="uniforme">Uniforme [0, 1]</option>
+        <option value="exponentielle">Exponentielle</option>
+        <option value="binomiale">Binomiale</option>
+        <option value="poisson">Poisson</option>
+    </select>
+
+    <div id="champ_lambda" style="display:none;">
+        <label>λ (lambda) :</label>
+        <input type="number" name="lambda_val" value="1" min="0.1" step="0.1">
+    </div>
+
+    <div id="champ_p" style="display:none;">
+        <label>p (probabilité) :</label>
+        <input type="number" name="p_val" value="0.5" min="0.01" max="0.99" step="0.01">
+    </div>
+
+    <label>Taille d'échantillon (n) :</label>
+    <input type="number" name="n" value="30" min="1" max="1000">
+
+    <label>Nombre de répétitions :</label>
+    <input type="number" name="repetitions" value="1000" min="100" max="10000">
+
+    <button type="submit">▶ Simuler</button>
+</form>
+
+<script>
+    function afficherParams() {
+        var distribution = document.getElementById('distribution').value;
+        var champ_lambda = document.getElementById('champ_lambda');
+        var champ_p = document.getElementById('champ_p');
+
+        champ_lambda.style.display = 'none';
+        champ_p.style.display = 'none';
+
+        if (distribution == 'exponentielle' || distribution == 'poisson') {
+            champ_lambda.style.display = 'block';
+        }
+        if (distribution == 'binomiale') {
+            champ_p.style.display = 'block';
+        }
+    }
+
+    afficherParams();
+</script>
+
+{% if graphique %}
+<div class="resultats">
+    <h2>Résultats — Distribution {{ params.distribution }}</h2>
+    <img src="data:image/png;base64,{{ graphique }}" alt="Graphique CLT">
+    <div class="stats">
+        <div class="stat-box">
+            Moyenne des moyennes
+            <span>{{ params.moyenne }}</span>
+        </div>
+        <div class="stat-box">
+            Écart-type
+            <span>{{ params.ecart_type }}</span>
+        </div>
+        <div class="stat-box">
+            Répétitions
+            <span>{{ params.repetitions }}</span>
+        </div>
+        <div class="stat-box">
+            Taille n
+            <span>{{ params.n }}</span>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+</body>
+</html>
