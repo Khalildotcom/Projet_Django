@@ -4,7 +4,7 @@
 Application web interactive construite avec Django permettant de simuler
 le Théorème Central Limite (TCL). L'utilisateur choisit une distribution
 probabiliste, ses paramètres, la taille d'échantillon et le nombre de
-répétitions — l'application génère automatiquement l'histogramme des
+répétitions; l'application génère automatiquement l'histogramme des
 moyennes avec la courbe normale théorique.
 
 ---
@@ -20,8 +20,8 @@ moyennes avec la courbe normale théorique.
 
 ```bash
 # Cloner le projet
-git clone https://github.com/TON_USERNAME/clt-django.git
-cd clt-django
+git clone https://github.com/TON_USERNAME/Projet_Django.git
+cd Projet_Django
 
 # Installer les dépendances
 pip install django numpy matplotlib
