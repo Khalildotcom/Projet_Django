@@ -23,8 +23,18 @@ moyennes avec la courbe normale théorique.
 git clone https://github.com/TON_USERNAME/Projet_Django.git
 cd Projet_Django
 
+# Créer l'environnement virtuel
+python -m venv venv
+
+# Activer l'environnement virtuel
+# Windows :
+venv\Scripts\activate
+# Mac/Linux :
+source venv/bin/activate
+
+
 # Installer les dépendances
-pip install django numpy matplotlib
+pip install -r requirements.txt
 ```
 
 ---
