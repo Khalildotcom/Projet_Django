@@ -20,7 +20,7 @@ moyennes avec la courbe normale théorique.
 
 ```bash
 # Cloner le projet
-git clone https://github.com/TON_USERNAME/Projet_Django.git
+git clone https://github.com/khalildotcom/Projet_Django.git
 cd Projet_Django
 
 # Créer l'environnement virtuel
